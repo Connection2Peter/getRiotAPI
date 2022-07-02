@@ -1,0 +1,58 @@
+name: myenv
+channels:
+  - defaults
+dependencies:
+  - blas=1.0=mkl
+  - bottleneck=1.3.4=py38hce1f21e_0
+  - ca-certificates=2022.4.26=h06a4308_0
+  - certifi=2022.6.15=py38h06a4308_0
+  - intel-openmp=2020.2=254
+  - ld_impl_linux-64=2.38=h1181459_1
+  - libffi=3.3=he6710b0_2
+  - libgcc-ng=11.2.0=h1234567_1
+  - libstdcxx-ng=11.2.0=h1234567_1
+  - mkl=2020.2=256
+  - mkl-service=2.3.0=py38he904b0f_0
+  - mkl_fft=1.3.0=py38h54f3939_0
+  - mkl_random=1.1.1=py38h0573a6f_0
+  - ncurses=6.3=h7f8727e_2
+  - numexpr=2.7.3=py38hb2eb853_0
+  - numpy=1.19.2=py38h54aff64_0
+  - numpy-base=1.19.2=py38hfa32c7d_0
+  - openssl=1.1.1o=h7f8727e_0
+  - packaging=21.3=pyhd3eb1b0_0
+  - pandas=1.4.2=py38h295c915_0
+  - pip=21.2.4=py38h06a4308_0
+  - pyparsing=3.0.4=pyhd3eb1b0_0
+  - python=3.8.13=h12debd9_0
+  - python-dateutil=2.8.2=pyhd3eb1b0_0
+  - pytz=2022.1=py38h06a4308_0
+  - readline=8.1.2=h7f8727e_1
+  - setuptools=61.2.0=py38h06a4308_0
+  - six=1.16.0=pyhd3eb1b0_1
+  - sqlite=3.38.3=hc218d9a_0
+  - tk=8.6.11=h1ccaba5_1
+  - wheel=0.37.1=pyhd3eb1b0_0
+  - xz=5.2.5=h7f8727e_1
+  - zlib=1.2.12=h7f8727e_2
+  - pip:
+    - arrow==0.17.0
+    - cassiopeia==5.0.1
+    - charset-normalizer==2.0.12
+    - datapipelines==1.0.7
+    - idna==3.3
+    - isodate==0.6.1
+    - lxml==4.9.0
+    - merakicommons==1.0.10
+    - networkx==2.8.3
+    - pillow==9.1.1
+    - pycountry==22.3.5
+    - pycryptodome==3.14.1
+    - pysocks==1.7.1
+    - requests==2.27.1
+    - riotwatcher==3.2.2
+    - streamlink==4.1.0
+    - urllib3==1.26.9
+    - websocket-client==1.3.2
+prefix: /home/connection/.conda/envs/myenv
+
