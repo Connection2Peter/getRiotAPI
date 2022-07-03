@@ -43,7 +43,7 @@ Fields = [
     "individualPosition", "gameStarttimeTSamp", "同隊-TOP", "同隊-JUNGLE", "同隊-MIDDLE",
     "同隊-BOTTOM", "同隊-UTILITY", "敵隊-TOP", "敵隊-JUNGLE", "敵隊-MIDDLE",
     "敵隊-BOTTOM", "敵隊-UTILITY", "timePlayed", "勝負", "擊殺",
-    "死亡", "助攻", "CS?", "經濟-TOP", "經濟-JUNGLE", "經濟-MIDDLE",
+    "死亡", "助攻", "CS", "經濟-TOP", "經濟-JUNGLE", "經濟-MIDDLE",
     "經濟-BOTTOM", "經濟-UTILITY", "傷害-TOP", "傷害-JUNGLE", "傷害-MIDDLE",
     "傷害-BOTTOM", "傷害-UTILITY", "承傷-TOP", "承傷-JUNGLE", "承傷-MIDDLE",
     "承傷-BOTTOM", "承傷-UTILITY", "firstBloodKill", "firstBloodAssist", "controlWardsPlaced",
@@ -54,7 +54,7 @@ Fields = [
 
 UserInfos = Search.summoner.by_name(region, player)
 
-with open(output, 'w', encoding='utf-8-sig') as fout:
+with open(output, 'w', encoding='utf-8-sig', newline='') as fout:
     CsvWriter = csv.writer(fout)
     CsvWriter.writerow(Fields)
     while True:
@@ -83,7 +83,7 @@ with open(output, 'w', encoding='utf-8-sig') as fout:
 
                     try:
                         StrTimeP = datetime.fromtimestamp(GameData["info"]["gameStartTimestamp"]/1000.0)
-                        UserRelates.append(StrTimeP.strftime("%Y-%m-%d_%H-%M-%S"))
+                        UserRelates.append(StrTimeP.strftime("%Y/%m/%d %H:%M:%S"))
                     except:
                         UserRelates.append("NULL")
 
