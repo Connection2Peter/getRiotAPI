@@ -82,8 +82,8 @@ with open(output, 'w', encoding='utf-8-sig') as fout:
                         UserRelates.append("NULL")
 
                     try:
-                        StrTimeP = datetime.fromtimeTSamp(GameData["info"]["gameStarttimeTSamp"]/1000.0)
-                        UserRelates.append(StrTimeP.strftime("%Y%m%d %H%M%S"))
+                        StrTimeP = datetime.fromtimestamp(GameData["info"]["gameStartTimestamp"]/1000.0)
+                        UserRelates.append(StrTimeP.strftime("%Y-%m-%d_%H-%M-%S"))
                     except:
                         UserRelates.append("NULL")
 
