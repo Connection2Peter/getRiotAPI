@@ -19,7 +19,7 @@ from riotwatcher import LolWatcher, ApiError
 
 ##### Args & Vars
 usage  = "\nUsage   :\n py %s {DIROUTPUT} {RIOTNAME} {REGION} {RIOTAPIKEY}" % sys.argv[0]
-usage += "\nExample :\n py %s OutputDir Ironmin136 kr RGAPI-975692e9-b2ef-4cb8-bb76-463a857b5bc4\n" % sys.argv[0]
+usage += "\nExample :\n py %s sampleOutput Ironmin136 kr RGAPI-975692e9-b2ef-4cb8-bb76-463a857b5bc4\n" % sys.argv[0]
 if len(sys.argv) < 5:
     exit(usage)
 
@@ -36,7 +36,7 @@ if not os.path.isdir(output):
 
 ##### Main Program
 idxPtr = 0
-timeTS = time.strftime("%Y-%m-%d_%H-%M-%S_YR-NorMode_", time.localtime())
+timeTS = time.strftime("%Y-%m-%d_%H-%M-%S_Matches_", time.localtime())
 output = os.path.join(output, timeTS + player + ".csv")
 Search = LolWatcher(apiKey)
 Fields = [
@@ -47,8 +47,8 @@ Fields = [
     "經濟-BOTTOM", "經濟-UTILITY", "傷害-TOP", "傷害-JUNGLE", "傷害-MIDDLE",
     "傷害-BOTTOM", "傷害-UTILITY", "承傷-TOP", "承傷-JUNGLE", "承傷-MIDDLE",
     "承傷-BOTTOM", "承傷-UTILITY", "firstBloodKill", "firstBloodAssist", "controlWardsPlaced",
-    "wardsPlaced", "visionScore", "visionScorePerMinute", "wardsKilled", "teamId",
-    "隊伍擊殺數", "隊伍死亡數",  "teamRiftHeraldKills", "dragonTakedowns", "teamBaronKills"
+    "wardsPlaced", "visionScore", "visionScorePerMinute", "wardsKilled", "dragonkills", "teamId",
+    "隊伍擊殺數", "隊伍死亡數",  "teamRiftHeraldKills", "teamDragon", "teamElderDragonKills", "teamBaronKills"
 ]
 
 
@@ -66,7 +66,7 @@ with open(output, 'w', encoding='utf-8-sig', newline='') as fout:
         for game in UserGames:
             time.sleep(1)
             teamID, UserRelates, UserChampionNames, OppoChampionNames = 0, [], [], []
-            teamKill, teamDeath, GoldEarneds, TotalDamages, TotalDamageTakens = 0, 0, [], [], []
+            teamKill, teamDeath, teamDragon, GoldEarneds, TotalDamages, TotalDamageTakens = 0, 0, 0, [], [], []
             GameData = Search.match.by_id(region, game)
 
             print(GameData['metadata']['matchId'])
@@ -151,6 +151,11 @@ with open(output, 'w', encoding='utf-8-sig', newline='') as fout:
                         UserRelates.append(gamer["wardsKilled"])
                     except:
                         UserRelates.append("NULL")
+                    
+                    try:
+                        UserRelates.append(gamer["dragonKills"])
+                    except:
+                        UserRelates.append("NULL")
                         
                     try:
                         UserRelates.append(gamer["teamId"])
@@ -161,9 +166,9 @@ with open(output, 'w', encoding='utf-8-sig', newline='') as fout:
                         UserRelates.append(gamer["challenges"]["teamRiftHeraldKills"])
                     except:
                         UserRelates.append("NULL")
-                        
+                                                                        
                     try:
-                        UserRelates.append(gamer["challenges"]["dragonTakedowns"])
+                        UserRelates.append(gamer["challenges"]["teamElderDragonKills"])
                     except:
                         UserRelates.append("NULL")
                         
@@ -171,7 +176,7 @@ with open(output, 'w', encoding='utf-8-sig', newline='') as fout:
                         UserRelates.append(gamer["challenges"]["teamBaronKills"])
                     except:
                         UserRelates.append("NULL")
-
+                   
                     ### 個人資訊 (結束)
 
                     ### 團隊資訊 (開始)
@@ -186,6 +191,11 @@ with open(output, 'w', encoding='utf-8-sig', newline='') as fout:
                         teamDeath += gamer["deaths"]
                     except:
                         teamDeath += 0
+                                                
+                    try:
+                        teamDragon += gamer["dragonKills"]
+                    except:
+                        teamDragon += 0
 
                     try:
                         UserChampionNames.append(gamer["championName"])
@@ -211,12 +221,13 @@ with open(output, 'w', encoding='utf-8-sig', newline='') as fout:
                         OppoChampionNames.append(gamer["championName"])
                     except:
                         OppoChampionNames.append("NULL")
+                        
                     ### 團隊資訊 (結束)
 
             CsvWriter.writerow(
                 UserRelates[:2] + UserChampionNames + OppoChampionNames + UserRelates[2:8] +
-                GoldEarneds + TotalDamages + TotalDamageTakens + UserRelates[8:16] +
-                [teamKill] + [teamDeath] + UserRelates[16:]
+                GoldEarneds + TotalDamages + TotalDamageTakens + UserRelates[8:17] +
+                [teamKill] + [teamDeath] + UserRelates[17:18] + [teamDragon] + UserRelates[18:]
             )
 
         idxPtr+=100
