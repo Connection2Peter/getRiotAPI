@@ -26,6 +26,7 @@ if len(sys.argv) < 5:
 
 output = sys.argv[1]
 player = sys.argv[2]
+player = "Hide on bush"
 region = sys.argv[3]
 apiKey = sys.argv[4]
 
